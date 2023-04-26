@@ -19,6 +19,16 @@ class GroundRobotDriver:
         self.receiver.enable(self.__timestep)
         self.receiver.setChannel(1)
 
+
+
+        self.wheels = []
+        self.wheelNames = ['wheel1', 'wheel2', 'wheel3', 'wheel4']
+
+        for i in range(4):
+            self.wheels.append(self.__robot.getDevice(self.wheelNames[i]))
+            self.wheels[i].setPosition(float('inf'))
+            self.wheels[i].setVelocity(0.0)
+
         #self.__left_motor = self.__robot.getDevice('left wheel motor')
         #self.__right_motor = self.__robot.getDevice('right wheel motor')
 
@@ -42,6 +52,13 @@ class GroundRobotDriver:
         rclpy.spin_once(self.__node, timeout_sec=0)
         arr = []
         signal_arr_msg = SignalArray()
+
+        speed = 3.0
+
+        self.wheels[0].setVelocity(speed)
+        self.wheels[1].setVelocity(speed)
+        self.wheels[2].setVelocity(speed)
+        self.wheels[3].setVelocity(speed)
 
         if self.receiver.getQueueLength() > 0:
             signal_msg = Signal()
