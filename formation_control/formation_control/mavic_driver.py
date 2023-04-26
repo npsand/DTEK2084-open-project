@@ -17,6 +17,7 @@
 import math
 import rclpy
 from geometry_msgs.msg import Twist
+from nav_msgs.msg import Odometry
 import struct
 from rclpy.impl import rcutils_logger
 
@@ -71,7 +72,8 @@ class MavicDriver:
         # ROS interface
         rclpy.init(args=None)
         self.__node = rclpy.create_node('mavic_driver')
-        self.__node.create_subscription(Twist, 'cmd_vel', self.__cmd_vel_callback, 1)
+        self.__node.create_subscription(Twist, '/drone1/cmd_vel', self.__cmd_vel_callback, 1)
+        self.odom_pub = self.__node.create_publisher(Odometry, '/drone1/odom', 10)
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
@@ -82,7 +84,7 @@ class MavicDriver:
         roll_ref = 0
         pitch_ref = 0
         
-
+        """
         self.receiver.enable(self.__timestep)
         self.logger.info('signal strength %f' % self.receiver.getSignalStrength())
 
@@ -94,6 +96,7 @@ class MavicDriver:
             packet = self.receiver.getData()
             self.logger.info('packet %s' % packet)
             self.receiver.nextPacket()
+        """
 
 
         #signal_direction = self.receiver.getEmitterDirection()
@@ -101,7 +104,7 @@ class MavicDriver:
 
         # Read sensors
         roll, pitch, _ = self.__imu.getRollPitchYaw()
-        _, _, vertical = self.__gps.getValues()
+        x_pos, y_pos, vertical = self.__gps.getValues()
         roll_acceleration, pitch_acceleration, twist_yaw = self.__gyro.getValues()
         velocity = self.__gps.getSpeed()
         if math.isnan(velocity):
@@ -144,3 +147,11 @@ class MavicDriver:
         self.__propellers[1].setVelocity(m2)
         self.__propellers[2].setVelocity(m3)
         self.__propellers[3].setVelocity(-m4)
+
+
+        odom_msg = Odometry()
+        odom_msg.pose.pose.position.x = x_pos
+        odom_msg.pose.pose.position.y = y_pos
+        odom_msg.pose.pose.position.z = vertical
+
+        self.odom_pub.publish(odom_msg)

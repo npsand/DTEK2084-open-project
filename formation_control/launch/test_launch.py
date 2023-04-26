@@ -43,8 +43,15 @@ def get_ros2_nodes(*args):
         ]
     )
 
+    formation_controller = Node(
+        package='formation_control',
+        executable='formation_controller',
+        output='screen',
+    )
+
     return [
         mavic_driver,
+        formation_controller
     ]
 
 

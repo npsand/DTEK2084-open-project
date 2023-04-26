@@ -1,33 +1,13 @@
 #VRML_SIM R2023a utf8
-
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/RectangleArena.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/dji/mavic/protos/Mavic2Pro.proto"
-
-WorldInfo {
-  basicTimeStep 8
-  defaultDamping Damping {
-    linear 0.5
-    angular 0.5
-  }
-}
-Viewpoint {
-  orientation -0.39051215644419623 0.41500597312133836 0.8217483178826193 1.7058709994543984
-  position 0.46872608892714873 -8.957288037631981 10.603801903013014
-}
-TexturedBackground {
-}
-TexturedBackgroundLight {
-}
-RectangleArena {
-  floorSize 10 10
-  floorTileSize 1 1
-  wallHeight 0.05
-}
-Robot {
-  translation 0 0 0.05
-  rotation 0 0 1 1.5708
+PROTO FourWheelsRobot [
+  field SFVec3f    translation  0 0 0
+  field SFRotation rotation     0 0 1 0
+  field SFFloat    bodyMass     1
+]
+{
+  Robot {
+  translation IS translation
+  rotation IS rotation
   children [
     DEF ROBOT_BODY Shape {
       appearance PBRAppearance {
@@ -181,34 +161,12 @@ Robot {
       name "ds_right"
     }
   ]
-  name "anchor"
+  name "robot1"
   boundingObject USE ROBOT_BODY
   physics Physics {
+    density -1
+    bodyMass IS bodyMass
   }
-  controller "<none>"
+  controller "four_wheeled_collision_avoidance"
 }
-Mavic2Pro {
-  translation 1 -1 0.1
-  rotation 0 0 1 1.5708
-  name "Mavic_2_PRO"
-  controller "<extern>"
-  bodySlot [
-    Group {
-      children [
-        Receiver {
-          channel 1
-        }
-        Emitter {
-          channel 1
-        }
-      ]
-    }
-  ]
-  cameraSlot [
-    Camera {
-      width 400
-      height 240
-      near 0.2
-    }
-  ]
 }
