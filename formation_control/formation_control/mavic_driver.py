@@ -52,8 +52,6 @@ class MavicDriver:
 
         self.emitter = self.__robot.getDevice('emitter')
         self.emitter.setChannel(1)
-        # self.receiver = self.__robot.getDevice('receiver')
-        # self.receiver.setChannel(1)
 
         # Propellers
         self.__propellers = [
@@ -89,25 +87,6 @@ class MavicDriver:
 
         message = struct.pack('s', b'hello')
         self.emitter.send(message)
-
-        
-        """
-        self.receiver.enable(self.__timestep)
-        self.logger.info('signal strength %f' % self.receiver.getSignalStrength())
-
-        if self.receiver.getQueueLength() > 0:
-            direction_em = self.receiver.getEmitterDirection()
-            self.logger.info('direction_em %s' % direction_em)
-
-        while self.receiver.getQueueLength() > 0:
-            packet = self.receiver.getData()
-            self.logger.info('packet %s' % packet)
-            self.receiver.nextPacket()
-        """
-
-
-        #signal_direction = self.receiver.getEmitterDirection()
-        #self.logger.info('signal direction %f %f %f' % (signal_direction[0], signal_direction[1], signal_direction[2]))
 
         # Read sensors
         roll, pitch, _ = self.__imu.getRollPitchYaw()

@@ -1,6 +1,9 @@
 import rclpy
-from geometry_msgs.msg import Twist
 from rclpy.impl import rcutils_logger
+
+from geometry_msgs.msg import Twist
+from interfaces.msg import Signal
+from interfaces.msg import SignalArray
 
 HALF_DISTANCE_BETWEEN_WHEELS = 0.045
 WHEEL_RADIUS = 0.025
@@ -30,24 +33,30 @@ class GroundRobotDriver:
         rclpy.init(args=None)
         self.__node = rclpy.create_node('ground_robot_driver')
         self.__node.create_subscription(Twist, 'cmd_vel', self.__cmd_vel_callback, 1)
+        self.signal_pub = self.__node.create_publisher(SignalArray, 'ground_robot/signals', 10)
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
 
     def step(self):
         rclpy.spin_once(self.__node, timeout_sec=0)
-
-
-        self.receiver.enable(self.__timestep)
-        self.logger.info('signal strength %f' % self.receiver.getSignalStrength())
+        arr = []
+        signal_arr_msg = SignalArray()
 
         if self.receiver.getQueueLength() > 0:
+            signal_msg = Signal()
+            signal_msg.signal_strength = self.receiver.getSignalStrength()
             direction_em = self.receiver.getEmitterDirection()
-            self.logger.info('direction_em %s' % direction_em)
+            signal_msg.signal_dir_x = direction_em[0]
+            signal_msg.signal_dir_y = direction_em[1]
+            signal_msg.signal_dir_z = direction_em[2]
+
+            arr.append(signal_msg)
+            signal_arr_msg.signals = arr
+            self.signal_pub.publish(signal_arr_msg)
+        
 
         while self.receiver.getQueueLength() > 0:
-            packet = self.receiver.getData()
-            #self.logger.info('packet %s' % packet)
             self.receiver.nextPacket()
 
         #forward_speed = self.__target_twist.linear.x

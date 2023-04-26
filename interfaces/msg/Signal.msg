@@ -1,0 +1,4 @@
+float64 signal_strength
+float64 signal_dir_x
+float64 signal_dir_y
+float64 signal_dir_z
