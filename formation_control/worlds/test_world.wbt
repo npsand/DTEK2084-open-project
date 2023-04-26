@@ -65,21 +65,4 @@ Mavic2Pro {
     }
   ]
 }
-Robot {
-  translation -0.36 0 0
-  children [
-    Group {
-      children [
-        Emitter {
-          name "test_emitter"
-          range 5
-          channel 1
-        }
-        WoodenBox {
-          size 0.1 0.1 0.1
-        }
-      ]
-    }
-  ]
-  controller "emitter_controller"
-}
+
