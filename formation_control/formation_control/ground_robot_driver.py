@@ -21,24 +21,13 @@ class GroundRobotDriver:
         self.imu = self.__robot.getDevice('inertial_unit')
         self.imu.enable(self.__timestep)
 
-
-
         self.wheels = []
-        self.wheelNames = ['wheel1', 'wheel2', 'wheel3', 'wheel4']
 
-        for i in range(4):
-            self.wheels.append(self.__robot.getDevice(self.wheelNames[i]))
+        for i in range(1,5):
+            self.wheels.append(self.__robot.getDevice(f'wheel{i}'))
             self.wheels[i].setPosition(float('inf'))
             self.wheels[i].setVelocity(0.0)
 
-        #self.__left_motor = self.__robot.getDevice('left wheel motor')
-        #self.__right_motor = self.__robot.getDevice('right wheel motor')
-
-        #self.__left_motor.setPosition(float('inf'))
-        #self.__left_motor.setVelocity(0)
-
-        #self.__right_motor.setPosition(float('inf'))
-        #self.__right_motor.setVelocity(0)
 
         self.__target_twist = Twist()
         self.counter = 0
@@ -99,12 +88,3 @@ class GroundRobotDriver:
         pose_msg.y = rpy[1]
         pose_msg.z = rpy[2]
         self.pose_pub.publish(pose_msg)
-
-        #forward_speed = self.__target_twist.linear.x
-        #angular_speed = self.__target_twist.angular.z
-
-        #command_motor_left = (forward_speed - angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
-        #command_motor_right = (forward_speed + angular_speed * HALF_DISTANCE_BETWEEN_WHEELS) / WHEEL_RADIUS
-
-        #self.__left_motor.setVelocity(command_motor_left)
-        #self.__right_motor.setVelocity(command_motor_right)
