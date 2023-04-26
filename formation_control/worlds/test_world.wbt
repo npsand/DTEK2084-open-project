@@ -13,8 +13,8 @@ WorldInfo {
   }
 }
 Viewpoint {
-  orientation -0.39051215644419623 0.41500597312133836 0.8217483178826193 1.7058709994543984
-  position 0.46872608892714873 -8.957288037631981 10.603801903013014
+  orientation 0.13555049288261534 0.9618838356093544 -0.23749852772747085 1.0710442427364024
+  position -4.61650543281514 0.06253851061577322 8.184763298359373
 }
 TexturedBackground {
 }
@@ -29,6 +29,10 @@ Robot {
   translation 0 0 0.05
   rotation 0 0 1 1.5708
   children [
+    Receiver {
+      name "ground_receiver"
+      channel 1
+    }
     DEF ROBOT_BODY Shape {
       appearance PBRAppearance {
         baseColor 1 0 0
@@ -181,11 +185,11 @@ Robot {
       name "ds_right"
     }
   ]
-  name "anchor"
+  name "ground_robot"
   boundingObject USE ROBOT_BODY
   physics Physics {
   }
-  controller "<none>"
+  controller "<extern>"
 }
 Mavic2Pro {
   translation 1 -1 0.1

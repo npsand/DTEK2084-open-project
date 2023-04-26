@@ -7,6 +7,7 @@ data_files.append(('share/ament_index/resource_index/packages', ['resource/' + p
 data_files.append(('share/' + package_name, ['package.xml']))
 data_files.append(('share/' + package_name + '/launch', ['launch/test_launch.py']))
 data_files.append(('share/' + package_name + '/resource', ['resource/mavic_webots.urdf']))
+data_files.append(('share/' + package_name + '/resource', ['resource/ground_robot.urdf']))
 data_files.append(('share/' + package_name + '/worlds', ['worlds/test_world.wbt']))
 
 
@@ -25,7 +26,8 @@ setup(
     entry_points={
         'console_scripts': [
             'mavic_driver = formation_control.mavic_driver:main',
-            'formation_controller = formation_control.formation_controller:main'
+            'formation_controller = formation_control.formation_controller:main',
+            'ground_robot_driver = formation_control.ground_robot_driver:main'
         ],
     },
 )

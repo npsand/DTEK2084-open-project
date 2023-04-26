@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<robot name="Ground robot">
+    <webots>
+        <plugin type="formation_control.ground_robot_driver.GroundRobotDriver" />
+    </webots>
+</robot>

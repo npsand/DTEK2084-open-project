@@ -32,7 +32,6 @@ from webots_ros2_driver.utils import controller_url_prefix
 def get_ros2_nodes(*args):
     package_dir = get_package_share_directory('formation_control')
     robot_description = pathlib.Path(os.path.join(package_dir, 'resource', 'mavic_webots.urdf')).read_text()
-    ground_robot_description = pathlib.Path(os.path.join(package_dir, 'resource', 'ground_robot.urdf')).read_text()
 
     mavic_driver = Node(
         package='webots_ros2_driver',
@@ -44,26 +43,8 @@ def get_ros2_nodes(*args):
         ]
     )
 
-    ground_robot_driver = Node(
-        package='formation_control',
-        executable='ground_robot_driver',
-        output='screen',
-        additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'ground_robot'},
-        parameters=[
-            {'robot_description': ground_robot_description},
-        ]
-    )
-
-    formation_controller = Node(
-        package='formation_control',
-        executable='formation_controller',
-        output='screen',
-    )
-
     return [
         mavic_driver,
-        formation_controller,
-        ground_robot_driver
     ]
 
 

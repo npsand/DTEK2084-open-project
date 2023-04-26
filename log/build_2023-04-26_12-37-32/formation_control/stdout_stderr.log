@@ -1,0 +1,41 @@
+running egg_info
+creating ../build/formation_control/formation_control.egg-info
+writing ../build/formation_control/formation_control.egg-info/PKG-INFO
+writing dependency_links to ../build/formation_control/formation_control.egg-info/dependency_links.txt
+writing entry points to ../build/formation_control/formation_control.egg-info/entry_points.txt
+writing requirements to ../build/formation_control/formation_control.egg-info/requires.txt
+writing top-level names to ../build/formation_control/formation_control.egg-info/top_level.txt
+writing manifest file '../build/formation_control/formation_control.egg-info/SOURCES.txt'
+reading manifest file '../build/formation_control/formation_control.egg-info/SOURCES.txt'
+writing manifest file '../build/formation_control/formation_control.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build
+creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build/lib
+creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build/lib/formation_control
+copying formation_control/__init__.py -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build/lib/formation_control
+copying formation_control/mavic_driver.py -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build/lib/formation_control
+running install
+running install_lib
+creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages/formation_control
+copying /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build/lib/formation_control/__init__.py -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages/formation_control
+copying /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build/lib/formation_control/mavic_driver.py -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages/formation_control
+byte-compiling /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages/formation_control/__init__.py to __init__.cpython-38.pyc
+byte-compiling /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages/formation_control/mavic_driver.py to mavic_driver.cpython-38.pyc
+running install_data
+creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/ament_index
+creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/ament_index/resource_index
+creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/ament_index/resource_index/packages
+copying resource/formation_control -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/ament_index/resource_index/packages
+copying package.xml -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control
+creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control/launch
+copying launch/test_launch.py -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control/launch
+creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control/resource
+copying resource/mavic_webots.urdf -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control/resource
+creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control/worlds
+copying worlds/test_world.wbt -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control/worlds
+running install_egg_info
+Copying ../build/formation_control/formation_control.egg-info to /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages/formation_control-0.0.0-py3.8.egg-info
+running install_scripts
+Installing mavic_driver script to /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/formation_control
+writing list of installed files to '/home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/install.log'

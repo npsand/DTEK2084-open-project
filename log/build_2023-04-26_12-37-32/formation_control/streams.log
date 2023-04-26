@@ -1,0 +1,43 @@
+[0.563s] Invoking command in '/home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/formation_control': PYTHONPATH=/home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/prefix_override:/home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/formation_control build --build-base /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build install --record /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/install.log --single-version-externally-managed
+[0.741s] running egg_info
+[0.741s] creating ../build/formation_control/formation_control.egg-info
+[0.742s] writing ../build/formation_control/formation_control.egg-info/PKG-INFO
+[0.742s] writing dependency_links to ../build/formation_control/formation_control.egg-info/dependency_links.txt
+[0.742s] writing entry points to ../build/formation_control/formation_control.egg-info/entry_points.txt
+[0.742s] writing requirements to ../build/formation_control/formation_control.egg-info/requires.txt
+[0.743s] writing top-level names to ../build/formation_control/formation_control.egg-info/top_level.txt
+[0.743s] writing manifest file '../build/formation_control/formation_control.egg-info/SOURCES.txt'
+[0.768s] reading manifest file '../build/formation_control/formation_control.egg-info/SOURCES.txt'
+[0.768s] writing manifest file '../build/formation_control/formation_control.egg-info/SOURCES.txt'
+[0.768s] running build
+[0.769s] running build_py
+[0.769s] creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build
+[0.769s] creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build/lib
+[0.769s] creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build/lib/formation_control
+[0.769s] copying formation_control/__init__.py -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build/lib/formation_control
+[0.769s] copying formation_control/mavic_driver.py -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build/lib/formation_control
+[0.770s] running install
+[0.770s] running install_lib
+[0.770s] creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages/formation_control
+[0.770s] copying /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build/lib/formation_control/__init__.py -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages/formation_control
+[0.770s] copying /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build/lib/formation_control/mavic_driver.py -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages/formation_control
+[0.770s] byte-compiling /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages/formation_control/__init__.py to __init__.cpython-38.pyc
+[0.771s] byte-compiling /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages/formation_control/mavic_driver.py to mavic_driver.cpython-38.pyc
+[0.772s] running install_data
+[0.773s] creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/ament_index
+[0.773s] creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/ament_index/resource_index
+[0.773s] creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/ament_index/resource_index/packages
+[0.773s] copying resource/formation_control -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/ament_index/resource_index/packages
+[0.773s] copying package.xml -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control
+[0.774s] creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control/launch
+[0.774s] copying launch/test_launch.py -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control/launch
+[0.774s] creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control/resource
+[0.774s] copying resource/mavic_webots.urdf -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control/resource
+[0.774s] creating /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control/worlds
+[0.774s] copying worlds/test_world.wbt -> /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/share/formation_control/worlds
+[0.775s] running install_egg_info
+[0.775s] Copying ../build/formation_control/formation_control.egg-info to /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages/formation_control-0.0.0-py3.8.egg-info
+[0.775s] running install_scripts
+[0.789s] Installing mavic_driver script to /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/formation_control
+[0.789s] writing list of installed files to '/home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/install.log'
+[0.820s] Invoked command in '/home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/formation_control' returned '0': PYTHONPATH=/home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/prefix_override:/home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/install/formation_control/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/formation_control build --build-base /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/build install --record /home/nevil/DTEK2084-open-project/src/DTEK2084-open-project/build/formation_control/install.log --single-version-externally-managed

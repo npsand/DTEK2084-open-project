@@ -1,0 +1,3 @@
+[console_scripts]
+mavic_driver = formation_control.mavic_driver:main
+
