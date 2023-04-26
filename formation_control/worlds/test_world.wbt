@@ -6,15 +6,14 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/dji/mavic/protos/Mavic2Pro.proto"
 
 WorldInfo {
-  basicTimeStep 8
   defaultDamping Damping {
-    linear 0.5
+    linear 0.99
     angular 0.5
   }
 }
 Viewpoint {
-  orientation 0.13555049288261534 0.9618838356093544 -0.23749852772747085 1.0710442427364024
-  position -4.61650543281514 0.06253851061577322 8.184763298359373
+  orientation -0.526947349048398 0.5434305048987063 0.6534598516178352 1.9556049511951563
+  position 0.9095348966189652 -2.1216188996054606 10.647662973687142
 }
 TexturedBackground {
 }
@@ -27,11 +26,23 @@ RectangleArena {
 }
 Robot {
   translation 0 0 0.05
-  rotation 0 0 1 1.5708
   children [
-    Receiver {
-      name "ground_receiver"
-      channel 1
+    Solid {
+      children [
+        Receiver {
+          name "ground_receiver"
+          channel 1
+        }
+      ]
+      name "receiver"
+    }
+    Solid {
+      children [
+        InertialUnit {
+          name "inertial_unit"
+        }
+      ]
+      name "IMU"
     }
     DEF ROBOT_BODY Shape {
       appearance PBRAppearance {
@@ -193,7 +204,6 @@ Robot {
 }
 Mavic2Pro {
   translation 1 -1 0.1
-  rotation 0 0 1 1.5708
   name "Mavic_2_PRO"
   controller "<extern>"
   bodySlot [

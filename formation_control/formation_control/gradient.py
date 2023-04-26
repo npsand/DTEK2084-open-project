@@ -1,23 +1,22 @@
 import numpy as np
 
-KP_POS = 1
+KP_POS = 0.1
 KP_NEG = 1
 OBST_RADIUS = 1
 
 def gradient_attraction(pos, goal):
     d_x = pos[0] - goal[0]
     d_y = pos[1] - goal[1]
-    d_star = 0.2
+    d_star = 0.1
 
     dist = np.sqrt(d_x**2 + d_y**2)
 
     if dist <= d_star:
         x = 1 * KP_POS * d_x
         y = 1 * KP_POS * d_y
-
     else:
-        x = KP_POS * d_star * d_x / dist
-        y = KP_POS * d_star * d_y / dist
+        x = 1 * KP_POS * d_star * d_x / dist
+        y = 1 * KP_POS * d_star * d_y / dist
 
     return [x,y]
 
