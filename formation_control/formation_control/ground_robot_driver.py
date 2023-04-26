@@ -13,6 +13,8 @@ class GroundRobotDriver:
 
 
         self.receiver = self.__robot.getDevice('ground_receiver')
+        self.receiver.enable(self.__timestep)
+        self.receiver.setChannel(1)
 
         #self.__left_motor = self.__robot.getDevice('left wheel motor')
         #self.__right_motor = self.__robot.getDevice('right wheel motor')
@@ -45,7 +47,7 @@ class GroundRobotDriver:
 
         while self.receiver.getQueueLength() > 0:
             packet = self.receiver.getData()
-            self.logger.info('packet %s' % packet)
+            #self.logger.info('packet %s' % packet)
             self.receiver.nextPacket()
 
         #forward_speed = self.__target_twist.linear.x

@@ -49,8 +49,11 @@ class MavicDriver:
         self.__gyro = self.__robot.getDevice('gyro')
         self.__imu = self.__robot.getDevice('inertial unit')
 
-        self.receiver = self.__robot.getDevice('receiver')
-        self.receiver.setChannel(1)
+
+        self.emitter = self.__robot.getDevice('emitter')
+        self.emitter.setChannel(1)
+        # self.receiver = self.__robot.getDevice('receiver')
+        # self.receiver.setChannel(1)
 
         # Propellers
         self.__propellers = [
@@ -83,6 +86,10 @@ class MavicDriver:
 
         roll_ref = 0
         pitch_ref = 0
+
+        message = struct.pack('s', b'hello')
+        self.emitter.send(message)
+
         
         """
         self.receiver.enable(self.__timestep)

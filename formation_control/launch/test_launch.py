@@ -45,8 +45,8 @@ def get_ros2_nodes(*args):
     )
 
     ground_robot_driver = Node(
-        package='formation_control',
-        executable='ground_robot_driver',
+        package='webots_ros2_driver',
+        executable='driver',
         output='screen',
         additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'ground_robot'},
         parameters=[
