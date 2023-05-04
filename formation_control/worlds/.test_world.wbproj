@@ -6,4 +6,9 @@ maximizedDockId: -1
 centralWidgetVisible: 1
 orthographicViewHeight: 1
 textFiles: -1
+renderingDevicePerspectives: Mavic_2_PRO(3):camera;1;1;0;0
 renderingDevicePerspectives: Mavic_2_PRO:camera;1;1;0;0
+renderingDevicePerspectives: Mavic_2_PRO_1:camera;1;1;0;0
+renderingDevicePerspectives: Mavic_2_PRO_2:camera;1;1;0;0
+renderingDevicePerspectives: Mavic_2_PRO_3:camera;1;1;0;0
+renderingDevicePerspectives: Mavic_2_PRO_4:camera;1;1;0;0

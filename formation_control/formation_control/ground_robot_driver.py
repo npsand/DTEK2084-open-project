@@ -23,8 +23,8 @@ class GroundRobotDriver:
 
         self.wheels = []
 
-        for i in range(1,5):
-            self.wheels.append(self.__robot.getDevice(f'wheel{i}'))
+        for i in range(4):
+            self.wheels.append(self.__robot.getDevice(f'wheel{i+1}'))
             self.wheels[i].setPosition(float('inf'))
             self.wheels[i].setVelocity(0.0)
 
@@ -43,8 +43,6 @@ class GroundRobotDriver:
 
     def step(self):
         rclpy.spin_once(self.__node, timeout_sec=0)
-        arr = []
-        signal_arr_msg = SignalArray()
 
         turn_left = 1
         turn_right = 1
@@ -65,21 +63,34 @@ class GroundRobotDriver:
         self.wheels[2].setVelocity(speed * turn_right)
         self.wheels[3].setVelocity(speed * turn_left)
 
-        if self.receiver.getQueueLength() > 0:
-            signal_msg = Signal()
-            signal_msg.signal_strength = self.receiver.getSignalStrength()
-            direction_em = self.receiver.getEmitterDirection()
-            signal_msg.signal_dir_x = direction_em[0]
-            signal_msg.signal_dir_y = direction_em[1]
-            signal_msg.signal_dir_z = direction_em[2]
+        arr = []
+        signal_arr_msg = SignalArray()
 
-            arr.append(signal_msg)
+        if self.receiver.getQueueLength() > 0:
+
+            for i in range(1,5):
+
+                self.receiver.setChannel(i)
+
+                if self.receiver.getQueueLength() > 0:
+                    signal_msg = Signal()
+                    signal_msg.signal_strength = self.receiver.getSignalStrength()
+                    direction_em = self.receiver.getEmitterDirection()
+                    signal_msg.signal_dir_x = direction_em[0]
+                    signal_msg.signal_dir_y = direction_em[1]
+                    signal_msg.signal_dir_z = direction_em[2]
+
+                    arr.append(signal_msg)
+                    self.receiver.nextPacket()
+
+                
+            """
+            while self.receiver.getQueueLength() > 0:
+                    self.receiver.nextPacket()
+            """
+            self.logger.info('%d' % len(arr))
             signal_arr_msg.signals = arr
             self.signal_pub.publish(signal_arr_msg)
-        
-
-        while self.receiver.getQueueLength() > 0:
-            self.receiver.nextPacket()
 
 
         pose_msg = Vector3()

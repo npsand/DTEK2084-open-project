@@ -51,7 +51,7 @@ class MavicDriver:
 
 
         self.emitter = self.__robot.getDevice('emitter')
-        self.emitter.setChannel(1)
+        self.emitter.setChannel(2)
 
         # Propellers
         self.__propellers = [
@@ -72,9 +72,9 @@ class MavicDriver:
 
         # ROS interface
         rclpy.init(args=None)
-        self.__node = rclpy.create_node('mavic_driver')
-        self.__node.create_subscription(Twist, '/drone1/cmd_vel', self.__cmd_vel_callback, 1)
-        self.odom_pub = self.__node.create_publisher(Odometry, '/drone1/odom', 10)
+        self.__node = rclpy.create_node('mavic_driver_2')
+        self.__node.create_subscription(Twist, '/drone2/cmd_vel', self.__cmd_vel_callback, 1)
+        self.odom_pub = self.__node.create_publisher(Odometry, '/drone2/odom', 10)
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist

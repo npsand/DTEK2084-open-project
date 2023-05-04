@@ -6,7 +6,10 @@ data_files=[]
 data_files.append(('share/ament_index/resource_index/packages', ['resource/' + package_name]))
 data_files.append(('share/' + package_name, ['package.xml']))
 data_files.append(('share/' + package_name + '/launch', ['launch/test_launch.py']))
-data_files.append(('share/' + package_name + '/resource', ['resource/mavic_webots.urdf']))
+data_files.append(('share/' + package_name + '/resource', ['resource/mavic_webots_1.urdf']))
+data_files.append(('share/' + package_name + '/resource', ['resource/mavic_webots_2.urdf']))
+data_files.append(('share/' + package_name + '/resource', ['resource/mavic_webots_3.urdf']))
+data_files.append(('share/' + package_name + '/resource', ['resource/mavic_webots_4.urdf']))
 data_files.append(('share/' + package_name + '/resource', ['resource/ground_robot.urdf']))
 data_files.append(('share/' + package_name + '/worlds', ['worlds/test_world.wbt']))
 

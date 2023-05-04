@@ -31,16 +31,46 @@ from webots_ros2_driver.utils import controller_url_prefix
 
 def get_ros2_nodes(*args):
     package_dir = get_package_share_directory('formation_control')
-    robot_description = pathlib.Path(os.path.join(package_dir, 'resource', 'mavic_webots.urdf')).read_text()
+    mavic_1 = pathlib.Path(os.path.join(package_dir, 'resource', 'mavic_webots_1.urdf')).read_text()
+    mavic_2 = pathlib.Path(os.path.join(package_dir, 'resource', 'mavic_webots_2.urdf')).read_text()
+    mavic_3 = pathlib.Path(os.path.join(package_dir, 'resource', 'mavic_webots_3.urdf')).read_text()
+    mavic_4 = pathlib.Path(os.path.join(package_dir, 'resource', 'mavic_webots_4.urdf')).read_text()
     ground_robot_description = pathlib.Path(os.path.join(package_dir, 'resource', 'ground_robot.urdf')).read_text()
 
-    mavic_driver = Node(
+    mavic_driver_1 = Node(
         package='webots_ros2_driver',
         executable='driver',
         output='screen',
-        additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'Mavic_2_PRO'},
+        additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'Mavic_2_PRO_1'},
         parameters=[
-            {'robot_description': robot_description},
+            {'robot_description': mavic_1},
+        ]
+    )
+    mavic_driver_2 = Node(
+        package='webots_ros2_driver',
+        executable='driver',
+        output='screen',
+        additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'Mavic_2_PRO_2'},
+        parameters=[
+            {'robot_description': mavic_2},
+        ]
+    )
+    mavic_driver_3 = Node(
+        package='webots_ros2_driver',
+        executable='driver',
+        output='screen',
+        additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'Mavic_2_PRO_3'},
+        parameters=[
+            {'robot_description': mavic_3},
+        ]
+    )
+    mavic_driver_4 = Node(
+        package='webots_ros2_driver',
+        executable='driver',
+        output='screen',
+        additional_env={'WEBOTS_CONTROLLER_URL': controller_url_prefix() + 'Mavic_2_PRO_4'},
+        parameters=[
+            {'robot_description': mavic_4},
         ]
     )
 
@@ -61,7 +91,10 @@ def get_ros2_nodes(*args):
     )
 
     return [
-        mavic_driver,
+        mavic_driver_1,
+        mavic_driver_2,
+        mavic_driver_3,
+        mavic_driver_4,
         formation_controller,
         ground_robot_driver
     ]
