@@ -17,6 +17,6 @@
             <gyroName>gyro</gyroName>
         </plugin>
 
-        <plugin type="formation_control.mavic_driver_1.MavicDriver" />
+        <plugin type="formation_control.mavic_driver_3.MavicDriver" />
     </webots>
 </robot>

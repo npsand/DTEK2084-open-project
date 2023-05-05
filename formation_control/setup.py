@@ -28,7 +28,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'mavic_driver = formation_control.mavic_driver:main',
+            #'mavic_driver = formation_control.mavic_driver:main',
             'formation_controller = formation_control.formation_controller:main',
             'ground_robot_driver = formation_control.ground_robot_driver:main'
         ],

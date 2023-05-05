@@ -12,8 +12,8 @@ WorldInfo {
   }
 }
 Viewpoint {
-  orientation -2.4686785285319208e-15 1 4.570362496210349e-15 0.8372574709824411
-  position -6.922512432391819 -0.14684646759122616 7.956330615722268
+  orientation 0.004999870405781403 0.9999657480255086 -0.006595761647463038 1.2972904502180709
+  position -2.895385887319677 -0.22194351214039232 10.11881197886529
 }
 TexturedBackground {
 }
@@ -21,12 +21,14 @@ TexturedBackgroundLight {
 }
 RectangleArena {
   floorSize 10 10
-  floorTileSize 1 1
+  floorTileSize 2 2
   wallHeight 0.05
 }
 Robot {
   translation 0 0 0.05
   children [
+    GPS {
+    }
     Solid {
       children [
         Receiver {
@@ -203,7 +205,7 @@ Robot {
   controller "<extern>"
 }
 Mavic2Pro {
-  translation 1 -1 0.1
+  translation 1 1 0.1
   name "Mavic_2_PRO_1"
   controller "<extern>"
   bodySlot [
@@ -227,7 +229,7 @@ Mavic2Pro {
   ]
 }
 Mavic2Pro {
-  translation 1 1 0.1
+  translation -1 1 0.1
   name "Mavic_2_PRO_2"
   controller "<extern>"
   bodySlot [
@@ -251,7 +253,7 @@ Mavic2Pro {
   ]
 }
 Mavic2Pro {
-  translation -1 1 0.1
+  translation -1 -1 0.1
   name "Mavic_2_PRO_3"
   controller "<extern>"
   bodySlot [
@@ -275,7 +277,7 @@ Mavic2Pro {
   ]
 }
 Mavic2Pro {
-  translation -1 -1 0.1
+  translation 1 -1 0.1
   name "Mavic_2_PRO_4"
   controller "<extern>"
   bodySlot [

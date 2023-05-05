@@ -73,8 +73,7 @@ class MavicDriver:
         # ROS interface
         rclpy.init(args=None)
         self.__node = rclpy.create_node('mavic_driver_2')
-        self.__node.create_subscription(Twist, '/drone2/cmd_vel', self.__cmd_vel_callback, 1)
-        self.odom_pub = self.__node.create_publisher(Odometry, '/drone2/odom', 10)
+        self.__node.create_subscription(Twist, '/Mavic_2_PRO_2/cmd_vel', self.__cmd_vel_callback, 1)
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
@@ -133,11 +132,3 @@ class MavicDriver:
         self.__propellers[1].setVelocity(m2)
         self.__propellers[2].setVelocity(m3)
         self.__propellers[3].setVelocity(-m4)
-
-
-        odom_msg = Odometry()
-        odom_msg.pose.pose.position.x = x_pos
-        odom_msg.pose.pose.position.y = y_pos
-        odom_msg.pose.pose.position.z = vertical
-
-        self.odom_pub.publish(odom_msg)

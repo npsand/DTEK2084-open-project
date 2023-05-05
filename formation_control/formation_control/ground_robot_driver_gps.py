@@ -42,6 +42,7 @@ class GroundRobotDriver:
         self.__node.create_subscription(Twist, 'cmd_vel', self.__cmd_vel_callback, 1)
         self.signal_pub = self.__node.create_publisher(SignalArray, 'ground_robot/signals', 10)
         self.pose_pub = self.__node.create_publisher(Vector3, 'ground_robot/pose', 10)
+        self.gps_pub = self.__node.create_publisher(Vector3, 'ground_robot/gps', 10)
 
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
@@ -49,8 +50,8 @@ class GroundRobotDriver:
     def step(self):
         rclpy.spin_once(self.__node, timeout_sec=0)
 
-        turn_left = 1
-        turn_right = 0.9
+        turn_left = 0.9
+        turn_right = 1
 
         speed = 1
 
@@ -60,32 +61,12 @@ class GroundRobotDriver:
         self.wheels[3].setVelocity(speed * turn_left)
 
 
-        if self.receiver.getQueueLength() > 0:
-            signal_msg = Signal()
-            signal_msg.signal_strength = self.receiver.getSignalStrength()
-            direction_em = self.receiver.getEmitterDirection()
-            signal_msg.signal_dir_x = direction_em[0]
-            signal_msg.signal_dir_y = direction_em[1]
-            signal_msg.signal_dir_z = direction_em[2]
-
-            self.signal_arr.append(signal_msg)
-            self.logger.info('channel %d' % len(self.signal_arr))
-            
-        #while self.receiver.getQueueLength() > 0:
-            self.receiver.nextPacket()
-
-        self.channel += 1
-        self.receiver.setChannel(self.channel)
-
-        if self.channel > 4:
-            self.logger.info('q len %d' % self.receiver.getQueueLength())
-            signal_arr_msg = SignalArray()
-            signal_arr_msg.signals = self.signal_arr
-            self.signal_pub.publish(signal_arr_msg)
-            self.channel = 1
-            self.receiver.setChannel(self.channel)
-            self.signal_arr = []
-
+        gps_msg = Vector3()
+        x, y, z = self.gps.getValues()
+        gps_msg.x = x
+        gps_msg.y = y
+        gps_msg.z = z
+        self.gps_pub.publish(gps_msg)
 
         pose_msg = Vector3()
         rpy = self.imu.getRollPitchYaw()

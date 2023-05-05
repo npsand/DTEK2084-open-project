@@ -17,13 +17,13 @@ class FormationControl(Node):
         self.pose_sub = self.create_subscription(Vector3, '/ground_robot/pose', self.pose_callback, qos_profile=qos_policy)
         self.pubs = []
         for i in range(4):
-            self.pubs.append(self.create_publisher(Twist, f'/drone{i+1}/cmd_vel', 10))
+            self.pubs.append(self.create_publisher(Twist, f'/Mavic_2_PRO_{i+1}/cmd_vel', 10))
         self.logger = rcutils_logger.RcutilsLogger()
 
-        self.goals = np.array([[1,1],
-                              [-1,1],
+        self.goals = np.array([[-1,1],
                               [-1,-1],
-                              [1,-1]])
+                              [1,-1],
+                              [1,1]])
         self.gr_yaw = 0
 
     def pose_callback(self, msg):
@@ -38,13 +38,14 @@ class FormationControl(Node):
             signal = msg.signals[i]
 
             pos = self.calc_pos_from_signal(signal)
-            self.logger.info('x %g, y %g' % (pos[0], pos[1]))
+            self.logger.info('x %g, y %g, i %d' % (pos[0], pos[1], i))
 
-            rot = np.array([[0, 1],
-                            [-1, 0]])
             rot_mat = np.array([[np.cos(self.gr_yaw), -np.sin(self.gr_yaw)],
                             [np.sin(self.gr_yaw), np.cos(self.gr_yaw)]])
-            #goal = rot @ goal
+            
+            rot = np.array([[0, 1],
+                        [-1, 0]])
+            #goal = rot @ self.goals[i]
             #goal = rot_mat @ goal
 
             obstacles = [[100,100],[-100,-100]]
@@ -55,8 +56,8 @@ class FormationControl(Node):
 
 
             vel_msg = Twist()
-            vel_msg.linear.x = -grad[0] * 1000
-            vel_msg.linear.y = -grad[1] * 1000
+            vel_msg.linear.x = -grad[0] * 500
+            vel_msg.linear.y = -grad[1] * 500
 
             self.pubs[i].publish(vel_msg)
 
