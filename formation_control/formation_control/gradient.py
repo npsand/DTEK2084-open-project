@@ -35,8 +35,7 @@ def gradient_repulsion(pos, obstacle):
 
     x = KP_NEG * ((1/OBST_RADIUS) - 1/(dist)) * (1/((dist)**2)) * d_x
     y = KP_NEG * ((1/OBST_RADIUS) - 1/(dist)) * (1/((dist)**2)) * d_y
-    #x = KP_NEG * (2 * (x_p/1 - x_g/1))/(((x_g/30 - x_p/30)**2 + (y_g/30 - y_p/30)**2)**2)
-    #y = KP_NEG * (2 * (y_p/1 - y_g/1))/(((x_g/30 - x_p/30)**2 + (y_g/30 - y_p/30)**2)**2)
+
     return [x,y]
 
 def gradient(pos, goal, obstacles):

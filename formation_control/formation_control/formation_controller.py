@@ -20,16 +20,21 @@ class FormationControl(Node):
             self.pubs.append(self.create_publisher(Twist, f'/Mavic_2_PRO_{i+1}/cmd_vel', 10))
         self.logger = rcutils_logger.RcutilsLogger()
 
+        # Goal positions for drones relative to the ground robot
         self.goals = np.array([[-1,1],
                               [-1,-1],
                               [1,-1],
                               [1,1]])
         
+        # 90 degree (pi/2 rad) clockwise rotation matrix for coordinate system changes
         self.rot_cw = np.array([[0, 1],
                                 [-1, 0]])
+        
+        # 90 degree (pi/2 rad) counter-clockwise rotation matrix coordinate system changes
         self.rot_ccw = np.array([[0, -1],
                                  [1, 0]])
 
+        # Ground robot yaw
         self.yaw_offset_mat = np.array([[np.cos(0), -np.sin(0)],
                                         [np.sin(0), np.cos(0)]])
 
@@ -42,23 +47,20 @@ class FormationControl(Node):
 
 
     def signal_callback(self, msg):
-
+        
+        # Calculate drone positions
         pos_arr = []
-
         for i in range(len(msg.signals)):
             signal = msg.signals[i]
-
             pos_arr.append(self.calc_pos_from_signal(signal))
 
-
+        # Calculate movement commands for each drone
         for i in range(len(msg.signals)):
             obstacles = pos_arr.copy()
             obstacles.pop(i)
-            self.logger.info('%s, i %d' % (obstacles, i))
-            self.logger.info('pos %s' % pos_arr[i])
-            self.logger.info('goal %s' % self.goals[i])
 
             grad = gradient(pos_arr[i], self.goals[i], obstacles)
+            # Rotate the gradients to match world coordinate system
             grad = self.rot_cw @ grad
             grad = self.yaw_offset_mat @ grad
 
@@ -86,6 +88,7 @@ class FormationControl(Node):
 
         projected = vec_2 * np.dot(vec_2, vec_1) / np.dot(vec_2, vec_2)
         projected = projected[:2]
+        # Rotate the signal vector to match the ground robot coordinate system
         projected = self.rot_ccw @ projected
 
         return [projected[0], projected[1]]

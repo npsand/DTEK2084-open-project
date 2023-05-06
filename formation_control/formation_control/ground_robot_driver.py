@@ -23,7 +23,7 @@ class GroundRobotDriver:
 
         self.imu = self.__robot.getDevice('inertial_unit')
         self.imu.enable(self.__timestep)
-
+        # Distance sensors
         self.ds = []
         dsNames = ['ds_right', 'ds_left']
         for i in range(2):
@@ -40,22 +40,15 @@ class GroundRobotDriver:
             self.wheels[i].setPosition(float('inf'))
             self.wheels[i].setVelocity(0.0)
 
-
-        self.__target_twist = Twist()
-
         rclpy.init(args=None)
         self.__node = rclpy.create_node('ground_robot_driver')
-        self.__node.create_subscription(Twist, 'cmd_vel', self.__cmd_vel_callback, 1)
         self.signal_pub = self.__node.create_publisher(SignalArray, 'ground_robot/signals', 10)
         self.pose_pub = self.__node.create_publisher(Vector3, 'ground_robot/pose', 10)
-
-    def __cmd_vel_callback(self, twist):
-        self.__target_twist = twist
 
     def step(self):
         rclpy.spin_once(self.__node, timeout_sec=0)
         
-
+        # Obstacle avoidance
         leftSpeed = 2.1
         rightSpeed = 2.0
         if self.avoidObstacleCounter > 0:
@@ -72,7 +65,7 @@ class GroundRobotDriver:
         self.wheels[2].setVelocity(leftSpeed)
         self.wheels[3].setVelocity(rightSpeed)
 
-
+        # Get signal strengths and directions from drone
         if self.receiver.getQueueLength() > 0:
             signal_msg = Signal()
             signal_msg.signal_strength = self.receiver.getSignalStrength()
@@ -85,9 +78,11 @@ class GroundRobotDriver:
 
             self.receiver.nextPacket()
 
+        # Change channel to next drone's channel
         self.channel += 1
         self.receiver.setChannel(self.channel)
 
+        # Publish drone signals when all channels have been visited
         if self.channel > 4:
             signal_arr_msg = SignalArray()
             signal_arr_msg.signals = self.signal_arr
@@ -96,7 +91,7 @@ class GroundRobotDriver:
             self.receiver.setChannel(self.channel)
             self.signal_arr = []
 
-
+        # Publish pose
         pose_msg = Vector3()
         rpy = self.imu.getRollPitchYaw()
         pose_msg.x = rpy[0]
