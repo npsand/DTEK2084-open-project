@@ -8,8 +8,8 @@ Placeholder
 
 ### Creating workspace
 ```
-mkdir -p ~/DTEK2084-open-project/src
-cd ~/DTEK2084-open-project/src
+mkdir -p ~/DTEK2084-open-project_ws/src
+cd ~/DTEK2084-open-project_ws/src
 git clone https://github.com/npsand/DTEK2084-open-project
 cd ..
 ```
@@ -33,7 +33,7 @@ You can replace `galactic` with `$ROS_DISTRO` commands above.
 
 ## Building
 ```
-cd ~/DTEK2084-open-project/src
+cd ~/DTEK2084-open-project_ws/src
 source /opt/ros/galactic/setup.bash
 colcon build
 source install/setup.bash
@@ -41,7 +41,9 @@ source install/setup.bash
 
 ## Run
 ```
-cd ~/DTEK2084-open-project/src
+cd ~/DTEK2084-open-project_ws/src
+source /opt/ros/galactic/setup.bash
+source install/setup.bash
 ros2 launch formation_control test_launch.py
 
 ```
