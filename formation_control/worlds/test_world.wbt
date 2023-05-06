@@ -4,6 +4,7 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/RectangleArena.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/dji/mavic/protos/Mavic2Pro.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/solids/protos/SolidBox.proto"
 
 WorldInfo {
   defaultDamping Damping {
@@ -12,17 +13,51 @@ WorldInfo {
   }
 }
 Viewpoint {
-  orientation 0.004999870405781403 0.9999657480255086 -0.006595761647463038 1.2972904502180709
-  position -2.895385887319677 -0.22194351214039232 10.11881197886529
+  orientation 0.0018749894857923149 0.9999932205537788 -0.0031691104287598585 1.0685134130811673
+  position -6.325083053354376 -0.005563297759100472 10.994913751837691
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 RectangleArena {
-  floorSize 10 10
+  floorSize 6 6
   floorTileSize 2 2
   wallHeight 0.05
+}
+SolidBox {
+  translation 1 -0.1 0.15
+  size 0.3 0.3 0.3
+}
+SolidBox {
+  translation -0.09 -1.46 0.15
+  name "box(1)"
+  size 0.3 0.3 0.3
+}
+SolidBox {
+  translation -0.49 1.08 0.15
+  name "box(3)"
+  size 0.3 0.3 0.3
+}
+SolidBox {
+  translation 1.42 2.5 0.15
+  name "box(4)"
+  size 0.3 0.3 0.3
+}
+SolidBox {
+  translation 2.47 -1.55 0.15
+  name "box(5)"
+  size 0.3 0.3 0.3
+}
+SolidBox {
+  translation -1.28 2.64 0.15
+  name "box(6)"
+  size 0.3 0.3 0.3
+}
+SolidBox {
+  translation -2.56 0.44 0.15
+  name "box(7)"
+  size 0.3 0.3 0.3
 }
 Robot {
   translation 0 0 0.05

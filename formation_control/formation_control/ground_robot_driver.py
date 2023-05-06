@@ -24,8 +24,14 @@ class GroundRobotDriver:
         self.imu = self.__robot.getDevice('inertial_unit')
         self.imu.enable(self.__timestep)
 
-        self.gps = self.__robot.getDevice('gps')
-        self.gps.enable(self.__timestep)
+        self.ds = []
+        dsNames = ['ds_right', 'ds_left']
+        for i in range(2):
+            self.ds.append(self.__robot.getDevice(dsNames[i]))
+            self.ds[i].enable(self.__timestep)
+
+        self.avoidObstacleCounter = 0
+
 
         self.wheels = []
 
@@ -48,16 +54,23 @@ class GroundRobotDriver:
 
     def step(self):
         rclpy.spin_once(self.__node, timeout_sec=0)
+        
 
-        turn_left = 1
-        turn_right = 0.9
-
-        speed = 2
-
-        self.wheels[0].setVelocity(speed * turn_right)
-        self.wheels[1].setVelocity(speed * turn_left)
-        self.wheels[2].setVelocity(speed * turn_right)
-        self.wheels[3].setVelocity(speed * turn_left)
+        leftSpeed = 2.1
+        rightSpeed = 2.0
+        if self.avoidObstacleCounter > 0:
+            self.avoidObstacleCounter -= 1
+            leftSpeed = 0.3
+            rightSpeed = -0.3
+        else:  # read sensors
+            for i in range(2):
+                if self.ds[i].getValue() < 950.0:
+                    self.avoidObstacleCounter = 100
+        
+        self.wheels[0].setVelocity(leftSpeed)
+        self.wheels[1].setVelocity(rightSpeed)
+        self.wheels[2].setVelocity(leftSpeed)
+        self.wheels[3].setVelocity(rightSpeed)
 
 
         if self.receiver.getQueueLength() > 0:
