@@ -1,8 +1,11 @@
 # DTEK2084-open-project
 
 ## Description
+Video demonstration in 10x speed
 
-Placeholder
+https://user-images.githubusercontent.com/59976909/236635761-359d6221-7480-460c-9bc6-26d8704dc5ce.mp4
+
+
 
 ## Installation
 
