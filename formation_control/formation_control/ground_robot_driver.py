@@ -52,7 +52,7 @@ class GroundRobotDriver:
         turn_left = 1
         turn_right = 0.9
 
-        speed = 1
+        speed = 2
 
         self.wheels[0].setVelocity(speed * turn_right)
         self.wheels[1].setVelocity(speed * turn_left)
@@ -69,16 +69,13 @@ class GroundRobotDriver:
             signal_msg.signal_dir_z = direction_em[2]
 
             self.signal_arr.append(signal_msg)
-            self.logger.info('channel %d' % len(self.signal_arr))
-            
-        #while self.receiver.getQueueLength() > 0:
+
             self.receiver.nextPacket()
 
         self.channel += 1
         self.receiver.setChannel(self.channel)
 
         if self.channel > 4:
-            self.logger.info('q len %d' % self.receiver.getQueueLength())
             signal_arr_msg = SignalArray()
             signal_arr_msg.signals = self.signal_arr
             self.signal_pub.publish(signal_arr_msg)

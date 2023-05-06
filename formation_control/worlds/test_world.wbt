@@ -205,7 +205,7 @@ Robot {
   controller "<extern>"
 }
 Mavic2Pro {
-  translation 1 1 0.1
+  translation 1.5 1.5 0.1
   name "Mavic_2_PRO_1"
   controller "<extern>"
   bodySlot [
@@ -229,7 +229,7 @@ Mavic2Pro {
   ]
 }
 Mavic2Pro {
-  translation -1 1 0.1
+  translation -1.5 1.5 0.1
   name "Mavic_2_PRO_2"
   controller "<extern>"
   bodySlot [
@@ -253,7 +253,7 @@ Mavic2Pro {
   ]
 }
 Mavic2Pro {
-  translation -1 -1 0.1
+  translation 1.5 -1.5 0.1
   name "Mavic_2_PRO_3"
   controller "<extern>"
   bodySlot [
@@ -277,7 +277,7 @@ Mavic2Pro {
   ]
 }
 Mavic2Pro {
-  translation 1 -1 0.1
+  translation -1.5 -1.5 0.1
   name "Mavic_2_PRO_4"
   controller "<extern>"
   bodySlot [

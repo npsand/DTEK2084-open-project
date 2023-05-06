@@ -24,40 +24,53 @@ class FormationControl(Node):
                               [-1,-1],
                               [1,-1],
                               [1,1]])
-        self.gr_yaw = 0
+        
+        self.rot_cw = np.array([[0, 1],
+                                [-1, 0]])
+        self.rot_ccw = np.array([[0, -1],
+                                 [1, 0]])
+
+        self.yaw_offset_mat = np.array([[np.cos(0), -np.sin(0)],
+                                        [np.sin(0), np.cos(0)]])
+
+        
 
     def pose_callback(self, msg):
-        self.gr_yaw = msg.z
+        self.yaw_offset_mat = np.array([[np.cos(msg.z), -np.sin(msg.z)],
+                                        [np.sin(msg.z), np.cos(msg.z)]])
         
 
 
     def signal_callback(self, msg):
 
+        pos_arr = []
 
         for i in range(len(msg.signals)):
             signal = msg.signals[i]
 
-            pos = self.calc_pos_from_signal(signal)
-            self.logger.info('x %g, y %g, i %d' % (pos[0], pos[1], i))
+            pos_arr.append(self.calc_pos_from_signal(signal))
 
-            rot_mat = np.array([[np.cos(self.gr_yaw), -np.sin(self.gr_yaw)],
-                            [np.sin(self.gr_yaw), np.cos(self.gr_yaw)]])
-            
-            rot = np.array([[0, 1],
-                        [-1, 0]])
-            #goal = rot @ self.goals[i]
-            #goal = rot_mat @ goal
 
-            obstacles = [[100,100],[-100,-100]]
+        for i in range(len(msg.signals)):
+            obstacles = pos_arr.copy()
+            obstacles.pop(i)
+            self.logger.info('%s, i %d' % (obstacles, i))
+            self.logger.info('pos %s' % pos_arr[i])
+            self.logger.info('goal %s' % self.goals[i])
 
-            grad = gradient(pos, self.goals[i], obstacles)
-            grad = rot @ grad
-            grad = rot_mat @ grad
-
+            grad = gradient(pos_arr[i], self.goals[i], obstacles)
+            grad = self.rot_cw @ grad
+            grad = self.yaw_offset_mat @ grad
 
             vel_msg = Twist()
-            vel_msg.linear.x = -grad[0] * 500
-            vel_msg.linear.y = -grad[1] * 500
+            vel_msg.linear.x = -grad[0]
+            vel_msg.linear.y = -grad[1]
+
+            # Speed limit to avoid crashing
+            if abs(vel_msg.linear.x) > 1.5:
+                vel_msg.linear.x = np.sign(vel_msg.linear.x) * 1.5
+            if abs(vel_msg.linear.y) > 1.5:
+                vel_msg.linear.y = np.sign(vel_msg.linear.y) * 1.5
 
             self.pubs[i].publish(vel_msg)
 
@@ -73,10 +86,7 @@ class FormationControl(Node):
 
         projected = vec_2 * np.dot(vec_2, vec_1) / np.dot(vec_2, vec_2)
         projected = projected[:2]
-
-        rot = np.array([[0, -1],
-                        [1, 0]])
-        projected = rot @ projected
+        projected = self.rot_ccw @ projected
 
         return [projected[0], projected[1]]
 

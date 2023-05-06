@@ -1,16 +1,16 @@
 import numpy as np
 
-KP_POS = 0.1
-KP_NEG = 1
+KP_POS = 3
+KP_NEG = 10
 OBST_RADIUS = 1
 
 def gradient_attraction(pos, goal):
     d_x = pos[0] - goal[0]
     d_y = pos[1] - goal[1]
-    d_star = 0.1
+    d_star = 0.5
 
     dist = np.sqrt(d_x**2 + d_y**2)
-
+    
     if dist <= d_star:
         x = 1 * KP_POS * d_x
         y = 1 * KP_POS * d_y
@@ -22,28 +22,28 @@ def gradient_attraction(pos, goal):
 
 def gradient_repulsion(pos, obstacle):
     x_p = pos[0]
-    x_g = obstacle[0]
+    x_o = obstacle[0]
     y_p = pos[1]
-    y_g = obstacle[1]
+    y_o = obstacle[1]
 
-    d_x = x_p - x_g
-    d_y = y_p - y_g
-    if d_x < 1:
-        d_x = 1
-    if d_y < 1:
-        d_y = 1
+    d_x = x_p - x_o
+    d_y = y_p - y_o
 
-    x = KP_NEG * ((1/OBST_RADIUS) - 1/(d_x)) * (1/((d_x)**2))
-    y = KP_NEG * ((1/OBST_RADIUS) - 1/(d_y)) * (1/((d_y)**2))
+    dist = np.sqrt(d_x**2 + d_y**2)
+    if dist > OBST_RADIUS:
+        return [0,0]
+
+    x = KP_NEG * ((1/OBST_RADIUS) - 1/(dist)) * (1/((dist)**2)) * d_x
+    y = KP_NEG * ((1/OBST_RADIUS) - 1/(dist)) * (1/((dist)**2)) * d_y
     #x = KP_NEG * (2 * (x_p/1 - x_g/1))/(((x_g/30 - x_p/30)**2 + (y_g/30 - y_p/30)**2)**2)
     #y = KP_NEG * (2 * (y_p/1 - y_g/1))/(((x_g/30 - x_p/30)**2 + (y_g/30 - y_p/30)**2)**2)
     return [x,y]
 
 def gradient(pos, goal, obstacles):
 
-    pos = np.array(pos) * 10
-    goal = np.array(goal) * 10
-    obstacles = np.array(obstacles) * 10
+    pos = np.array(pos)
+    goal = np.array(goal)
+    obstacles = np.array(obstacles)
 
     gradient_arr = []
     gradient_arr.append(gradient_attraction(pos, goal))
@@ -57,7 +57,7 @@ def gradient(pos, goal, obstacles):
         x += grad[0]
         y += grad[1]
     
-    x = x/10
-    y = y/10
+    x = x
+    y = y
 
     return [x,y]
